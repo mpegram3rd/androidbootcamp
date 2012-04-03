@@ -40,7 +40,7 @@ public class AuditLogDBHelper {
 	
 	public Cursor getAuditData() {
 		
-    	Cursor cursor = db.rawQuery("select rowid _id, event_type, timestamp from " + AuditLogOpenHelper.TABLE_NAME + " order by timestamp desc", null);
+    	Cursor cursor = db.rawQuery("select rowid _id, event_type, timestamp from " + AuditLogOpenHelper.TABLE_NAME + " order by timestamp", null);
     	cursor.moveToFirst();
     	return cursor;
 	}

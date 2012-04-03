@@ -22,7 +22,6 @@ public class EventsActivity extends ListActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.out.println("=== EventsActivity:onCreate()");	
         
         Cursor dataCursor = getDBHelper().getAuditData();
         startManagingCursor(dataCursor);

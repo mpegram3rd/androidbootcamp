@@ -9,7 +9,7 @@ public class AuditLogOpenHelper extends SQLiteOpenHelper {
 	public static final String TABLE_NAME = "auditlog";
 		
 	private static final String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME 
-			+ " (event_type text, time_text text)";
+			+ " (event_type text, timestamp integer)";
 	
 			
 	public AuditLogOpenHelper(Context context) {

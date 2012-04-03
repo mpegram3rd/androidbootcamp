@@ -1,7 +1,5 @@
 package com.blt.helloworld.db;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 import android.content.Context;
@@ -9,8 +7,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
+import com.blt.helloworld.model.EventType;
+
 public class AuditLogDBHelper {
-	
+		
 	private SQLiteDatabase db;
 	private AuditLogOpenHelper dbHelper;
 	
@@ -25,14 +25,13 @@ public class AuditLogDBHelper {
 	public void close() {
 		db.close();
 	}
-	public long recordEvent(String eventName) {
+	public long recordEvent(EventType event) {
 		
-		Date now = GregorianCalendar.getInstance().getTime();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		long timestamp = GregorianCalendar.getInstance().getTimeInMillis();
 		
-    	SQLiteStatement stmt = db.compileStatement("insert into " + AuditLogOpenHelper.TABLE_NAME + " (event_type, time_text)  VALUES (?,?)");
-    	stmt.bindString(1, eventName);
-    	stmt.bindString(2, formatter.format(now));
+    	SQLiteStatement stmt = db.compileStatement("insert into " + AuditLogOpenHelper.TABLE_NAME + " (event_type, timestamp)  VALUES (?,?)");
+    	stmt.bindString(1, event.toString());
+    	stmt.bindLong(2, timestamp);
     	long rowsInserted = stmt.executeInsert();
     	stmt.close();
     	
@@ -41,7 +40,7 @@ public class AuditLogDBHelper {
 	
 	public Cursor getAuditData() {
 		
-    	Cursor cursor = db.rawQuery("select rowid _id, event_type, time_text from " + AuditLogOpenHelper.TABLE_NAME + " order by time_text desc", null);
+    	Cursor cursor = db.rawQuery("select rowid _id, event_type, timestamp from " + AuditLogOpenHelper.TABLE_NAME + " order by timestamp desc", null);
     	cursor.moveToFirst();
     	return cursor;
 	}

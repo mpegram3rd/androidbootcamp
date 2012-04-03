@@ -1,4 +1,4 @@
-package com.blt.android.db;
+package com.blt.helloworld.db;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

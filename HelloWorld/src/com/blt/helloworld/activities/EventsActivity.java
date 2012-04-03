@@ -1,4 +1,4 @@
-package com.blt.android.poc;
+package com.blt.helloworld.activities;
 
 import android.app.ListActivity;
 import android.database.Cursor;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.widget.ListAdapter;
 import android.widget.SimpleCursorAdapter;
 
-import com.blt.android.db.AuditLogDBHelper;
+import com.blt.helloworld.db.AuditLogDBHelper;
 
 public class EventsActivity extends ListActivity {
 

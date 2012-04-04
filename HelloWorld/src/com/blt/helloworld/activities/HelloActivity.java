@@ -12,8 +12,11 @@ import com.blt.helloworld.model.EventType;
 
 public class HelloActivity extends Activity {
 	
+	private static final String AUDIT_STARTUP = "auditStartup";
+	
 	private Intent auditLogIntent;
 	private AuditLogDBHelper dbHelper;
+	private boolean startupRecorded;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,9 +24,20 @@ public class HelloActivity extends Activity {
         setContentView(R.layout.helloworld);
         Button button = (Button)findViewById(R.id.ok);
         button.setOnClickListener( new ButtonListener());
-        auditLogIntent = new Intent(this, EventsActivity.class);	
-    	getDBHelper().recordEvent(EventType.APP_STARTUP);
+        auditLogIntent = new Intent(this, EventsActivity.class);
         
+        // Determine if we've already recorded a startupEvent
+        startupRecorded = (savedInstanceState != null && savedInstanceState.getBoolean(AUDIT_STARTUP));
+        if (!startupRecorded) {
+        	getDBHelper().recordEvent(EventType.APP_STARTUP);
+        	startupRecorded = true;
+        }
+        
+    }
+    
+    @Override 
+    protected void onSaveInstanceState(Bundle bundleOut) {
+    	bundleOut.putBoolean(AUDIT_STARTUP, startupRecorded);
     }
     
     @Override

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="welcome_title">Hello World!</string>
-    <string name="events_title">Recorded Events</string>
-    <string name="app_name">Macon\'s Hello</string>
-	<string name="primary_button_text">Hit Me!</string>
-</resources>
